@@ -11,11 +11,13 @@ import library.db.pojos.Book;
 public class JDBCAuthorManager implements AuthorManager {
 
 	private Connection c;
+	private ConnectionManager conMan;
 
-	public JDBCAuthorManager(Connection c) {
-		this.c = c;
+	public JDBCAuthorManager(ConnectionManager conMan) {
+		this.setConMan(conMan);
+		this.c = conMan.getConnection();
 	}
-	
+
 	@Override
 	public void addAuthor(Author a) {
 		try {
@@ -30,11 +32,12 @@ public class JDBCAuthorManager implements AuthorManager {
 			System.out.println("Error in the database");
 			e.printStackTrace();
 		}
+
 	}
 
 	@Override
 	public List<Book> getBooksByAuthor(int authorId) {
-		// TODO getsBooksByAuthor
+		// TODO Auto-generated method stub
 		return null;
 	}
 
@@ -61,12 +64,13 @@ public class JDBCAuthorManager implements AuthorManager {
 			System.out.println("Error in the database");
 			e.printStackTrace();
 		}
-		return authors;		
+		return authors;
 	}
 
 	@Override
 	public void changeAuthor(Author a) {
-		// TODO changeAuthor
+		// TODO Complete the method with this query
+		String template = "UPDATE authors SET name = ?, surname = ? WHERE id = ?";
 
 	}
 
@@ -85,6 +89,14 @@ public class JDBCAuthorManager implements AuthorManager {
 			e.printStackTrace();
 		}
 		return null;
+	}
+
+	public ConnectionManager getConMan() {
+		return conMan;
+	}
+
+	public void setConMan(ConnectionManager conMan) {
+		this.conMan = conMan;
 	}
 
 }

@@ -9,21 +9,16 @@ import library.db.pojos.*;
 
 public class JDBCBookManager implements BookManager {
 
-	//Create a connection
 	private Connection c;
+	private ConnectionManager conMan;
 	
-	//Somebody creates a connection for us
-	public JDBCBookManager(Connection c) {
-		this.c=c;
+	public JDBCBookManager(ConnectionManager conMan) {
+		this.conMan = conMan;
+		this.c = conMan.getConnection();
 	}
 	
 	@Override
 	public void addBook(Book b) {
-		// TODO Create addBook
-		//Create an statement
-		//Define the query
-		//Run the statement
-		//Close statement
 		try {
 			String query = "INSERT INTO books (isbn, title, publicationDate, author_id) "
 							+ "VALUES (?,?,?,?);";
@@ -40,8 +35,6 @@ public class JDBCBookManager implements BookManager {
 		}
 	}
 
-
-
 	@Override
 	public List<Book> searchBookByTitle(String title) {
 		List<Book> books = new ArrayList<Book>();
@@ -55,8 +48,8 @@ public class JDBCBookManager implements BookManager {
 				String bookTitle = rs.getString("title");
 				Date pubDate = rs.getDate("publicationDate");
 				Integer authorId = rs.getInt("author_id");
-				// TODO get the author from the database
-				Book newBook = new Book(isbn, bookTitle, pubDate);
+				Author author = conMan.getAuthorMan().getAuthor(authorId);
+				Book newBook = new Book(isbn, bookTitle, pubDate, author);
 				books.add(newBook);
 			}
 			return books;
@@ -64,19 +57,21 @@ public class JDBCBookManager implements BookManager {
 			System.out.println("Error looking for a book");
 			e.printStackTrace();
 		}
-		return books;	
+		return books;
 	}
+
 
 	@Override
-	public void deleteBook(Book b) {
-		// TODO deleteBook
-
+	public void deleteBook(int bookId) {
+		// TODO Auto-generated method stub
+		
 	}
-	
+
 	@Override
 	public Book getBook(int id) {
-		// TODO getBook
+		// TODO Auto-generated method stub
 		return null;
 	}
+
 
 }
