@@ -17,7 +17,7 @@
 		<properties>	
 			<!-- Connection properties -->
 			<property name="javax.persistence.jdbc.driver" value="org.sqlite.JDBC" />  
-		    <property name="javax.persistence.jdbc.url"	value="jdbc:sqlite:./db/DBlibrary.db" /> <!--change to our file in our case idsw.db -->
+		    <property name="javax.persistence.jdbc.url"	value="jdbc:sqlite:./db/library.db" /> <!--change to our file in our case idsw.db -->
 			<!-- Fill if we need user and password -->
 			<property name="javax.persistence.jdbc.user" value="" />
 			<property name="javax.persistence.jdbc.password" value="" />
